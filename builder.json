@@ -1,0 +1,14 @@
+[
+    {
+        "name": "Python",
+        "cmd": "python $FILE"
+    }, 
+    {
+        "name": "JavaScript",
+        "cmd": "node $FILE"
+    },
+	{
+		"name": "Ruby",
+		"cmd": "ruby $FILE"
+	}
+]
