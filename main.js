@@ -28,17 +28,21 @@ define(function (require, exports, module) {
 	
 	var builders = JSON.parse(require('text!builder.json')),
 		panel,
-		panelHTML = require('text!brackets-builder-panel.html');
+		panelHTML = require('text!brackets-builder-panel.html'),
+		panelIsVisible = false;
 	
 	function _processCmdOutput(data) {
-		data = JSON.stringify(data).replace(/\\n/g, '<br />').replace(/\\t/, '').replace(/\"/g, '').replace(/\\t/g, '');
-		var curPanelHTML = panelHTML.replace("{{content}}", data);
-		panel = PanelManager.createBottomPanel("brackets-builder-panel", $(curPanelHTML));
-				
-		panel.show();
+		data = JSON.stringify(data);
+		data = data.replace(/\\n/g, '<br />').replace(/\"/g, '').replace(/\\t/g, '');
+		
+		return panelHTML.replace("{{content}}", data);
+	}
+	
+	function _processPanel(curPanel) {
+		curPanel.show();
 		
 		$('.builder-panel .close').on('click', function () {
-			panel.hide();
+			curPanel.hide();
 		});
 	}
 	
@@ -66,10 +70,12 @@ define(function (require, exports, module) {
 		}).then(function () {
 			nodeConnection.domains["builder.execute"].exec(curOpenDir, cmd)
 			.fail(function (err) {
-				_processCmdOutput(err);
+				panel = PanelManager.createBottomPanel("brackets-builder-panel", $(_processCmdOutput(err)));
+				_processPanel(panel);
 			})
 			.then(function (data) {
-				_processCmdOutput(data);
+				panel = PanelManager.createBottomPanel("brackets-builder-panel", $(_processCmdOutput(data)));
+				_processPanel(panel);
 			});
 		}).done();
 	}
