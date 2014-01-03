@@ -92,7 +92,7 @@ define(function (require, exports, module) {
     menu.addMenuDivider();
     // Create menu item that opens the config .json-file    
     CommandManager.register("Edit Builder", 'builder.open-conf', function () {
-		Dialogs.showModalDialog('', 'Brackets Builder Extention', 'You must restar Brackets after changing this file.');
+		Dialogs.showModalDialog('', 'Brackets Builder Extention', 'You must restart Brackets after changing this file.');
         var src = FileUtils.getNativeModuleDirectoryPath(module) + "/builder.json";
         
         DocumentManager.getDocumentForPath(src).done(
