@@ -40,7 +40,7 @@ define(function (require, exports, module) {
 	
 	function _processPanel(curPanel) {
 		
-		$('.builder-panel .close:last').prev().remove();
+		$('.builder-panel:last').prev(".builder-panel").remove();
 		curPanel.show();
 		
 		$('.builder-panel .close').on('click', function () {
