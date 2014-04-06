@@ -39,6 +39,8 @@ define(function (require, exports, module) {
 	}
 	
 	function _processPanel(curPanel) {
+		
+		$('.builder-panel .close:last').prev().remove();
 		curPanel.show();
 		
 		$('.builder-panel .close').on('click', function () {
