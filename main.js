@@ -9,7 +9,8 @@ Allow to run build programs (such as running Python/Ruby/Node/etc scripts) from 
 define(function (require, exports, module) {
     "use strict";
 
-    var CommandManager      = brackets.getModule("command/CommandManager"),
+    var AppInit             = brackets.getModule("utils/AppInit"),
+        CommandManager      = brackets.getModule("command/CommandManager"),
         Menus               = brackets.getModule("command/Menus"),
         NodeConnection      = brackets.getModule("utils/NodeConnection"),
         ExtensionUtils      = brackets.getModule("utils/ExtensionUtils"),
@@ -34,18 +35,7 @@ define(function (require, exports, module) {
     function _processCmdOutput(data) {
         data = JSON.stringify(data);
         data = data.replace(/\\n/g, '<br />').replace(/\"/g, '').replace(/\\t/g, '');
-
-        return panelHTML.replace("{{content}}", data);
-    }
-
-    function _processPanel(curPanel) {
-
-        $('.builder-panel:last').prev(".builder-panel").remove();
-        curPanel.show();
-
-        $('.builder-panel .close').on('click', function () {
-            curPanel.hide();
-        });
+        return data;
     }
 
     function handle() {
@@ -72,38 +62,46 @@ define(function (require, exports, module) {
         }).then(function () {
             nodeConnection.domains["builder.execute"].exec(curOpenDir, cmd)
             .fail(function (err) {
-                panel = PanelManager.createBottomPanel("brackets-builder-panel", $(_processCmdOutput(err)));
-                _processPanel(panel);
+                $('#builder-panel .builder-content').html(_processCmdOutput(err));
+                panel.show();
             })
             .then(function (data) {
-                panel = PanelManager.createBottomPanel("brackets-builder-panel", $(_processCmdOutput(data)));
-                _processPanel(panel);
+                $('#builder-panel .builder-content').html(_processCmdOutput(data));
+                panel.show();
             });
         }).done();
     }
 
-    CommandManager.register('Handling Build', 'builder.build', handle);
+    AppInit.appReady(function () {
+        panel = PanelManager.createBottomPanel("brackets-builder-panel", $(panelHTML), 100);
+        $('#builder-panel .close').on('click', function () {
+            panel.hide();
+        });
 
-    KeyBindingManager.addBinding('builder.build', 'Ctrl-Alt-B');
+        CommandManager.register('Handling Build', 'builder.build', handle);
 
-    // Add menu item to edit .json file
-    var menu = Menus.getMenu(Menus.AppMenuBar.EDIT_MENU);
+        KeyBindingManager.addBinding('builder.build', 'Ctrl-Alt-B');
 
-    menu.addMenuDivider();
-    // Create menu item that opens the config .json-file
-    CommandManager.register("Edit Builder", 'builder.open-conf', function () {
-        Dialogs.showModalDialog('', 'Brackets Builder Extention', 'You must restart Brackets after changing this file.');
-        var src = FileUtils.getNativeModuleDirectoryPath(module) + "/builder.json";
+        // Add menu item to edit .json file
+        var menu = Menus.getMenu(Menus.AppMenuBar.EDIT_MENU);
 
-        DocumentManager.getDocumentForPath(src).done(
-            function (doc) {
-                DocumentManager.setCurrentDocument(doc);
-            }
-        );
+        menu.addMenuDivider();
+        // Create menu item that opens the config .json-file
+        CommandManager.register("Edit Builder", 'builder.open-conf', function () {
+            Dialogs.showModalDialog('', 'Brackets Builder Extention', 'You must restart Brackets after changing this file.');
+            var src = FileUtils.getNativeModuleDirectoryPath(module) + "/builder.json";
+
+            DocumentManager.getDocumentForPath(src).done(
+                function (doc) {
+                    DocumentManager.setCurrentDocument(doc);
+                }
+            );
+        });
+
+        menu.addMenuItem('builder.open-conf');
+
+        // Load panel css
+        ExtensionUtils.loadStyleSheet(module, "brackets-builder.css");
     });
 
-    menu.addMenuItem('builder.open-conf');
-
-    // Load panel css
-    ExtensionUtils.loadStyleSheet(module, "brackets-builder.css");
 });
