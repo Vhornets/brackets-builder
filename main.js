@@ -84,7 +84,7 @@ define(function (require, exports, module) {
 		
 	CommandManager.register('Handling Build', 'builder.build', handle);
 
-	KeyBindingManager.addBinding('builder.build', 'Ctrl-B');
+	KeyBindingManager.addBinding('builder.build', 'Ctrl-Alt-B');
 	
 	
 	
