@@ -11,7 +11,7 @@
             callback(err ? stderr : undefined, err ? undefined : stdout);
         });
     }
-	
+
     exports.init = function (DomainManager) {
         if (!DomainManager.hasDomain(domainName)) {
             DomainManager.registerDomain(domainName, {
@@ -19,7 +19,7 @@
                 minor: 1
             });
         }
-        
+
         DomainManager.registerCommand(domainName, "exec", exec, true, "Exec cmd",
             [
                 {
@@ -37,5 +37,5 @@
             }]
         );
     };
-    	
+
 }());
