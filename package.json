@@ -3,7 +3,7 @@
     "title": "Brackets Builder",
     "description": "Allow to run build programs (such as running Python/Ruby/Node/etc scripts) from Brackets and display results in panel. It is possible to create own build systems via 'Edit>Edit Builder' menu item and editing opened JSON-file (you need to restart Brackets). Press Ctrl(Cmd)-B to build current file.",
     "homepage": "https://github.com/vhornets/brackets-builder",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "Vhornets<vhornets@gmail.com>",
     "files": [
         "main.js",
