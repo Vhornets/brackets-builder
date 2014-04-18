@@ -1,15 +1,5 @@
-.builder-panel {
-	background-color: #333;
-	overflow: scroll !important;
-	height: 150px;
-}
 .builder-content {
-	color: #fff;
-	font-size: 16px;
-	padding: 10px 0 10px 10px;
-}
-
-.builder-panel .close {
-	font-size: 32px;
-	padding: 10px 10px 0 0;
+    overflow: scroll !important;
+    height: 150px;
+    padding: 5px 10px;
 }
