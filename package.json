@@ -13,5 +13,6 @@
         "README.md",
         "builder.json"
     ],
+    "contributors": ["Vhornets", "rwinzcyruz", "IonicaBizau"]
     "keywords": ["builder"]
 }
