@@ -56,9 +56,9 @@ define(function (require, exports, module) {
                 if (el.name.toLowerCase() === curOpenLang.toLowerCase()) {
                     cmd = el.cmd;
                 }
-            });
-
-            cmd = cmd.replace("$FILE", "\"" + curOpenFile + "\"");
+            });  
+            
+            cmd = cmd.replace(/\$FILE/g, "\"" + curOpenFile + "\"");
         }).then(function () {
             nodeConnection.domains["builder.execute"].exec(curOpenDir, cmd)
             .fail(function (err) {
