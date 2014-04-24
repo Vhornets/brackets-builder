@@ -58,7 +58,7 @@ define(function (require, exports, module) {
                 }
             });
 
-            cmd = cmd.replace("$FILE", curOpenFile);
+            cmd = cmd.replace("$FILE", "\"" + curOpenFile + "\"");
         }).then(function () {
             nodeConnection.domains["builder.execute"].exec(curOpenDir, cmd)
             .fail(function (err) {
