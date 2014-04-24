@@ -66,8 +66,10 @@ define(function (require, exports, module) {
                 panel.show();
             })
             .then(function (data) {
-                $('#builder-panel .builder-content').html(_processCmdOutput(data));
-                panel.show();
+                if(data != "") {
+                    $('#builder-panel .builder-content').html(_processCmdOutput(data));
+                    panel.show();
+                }
             });
         }).done();
     }
