@@ -66,7 +66,7 @@ define(function (require, exports, module) {
                 panel.show();
             })
             .then(function (data) {
-                $('#builder-panel .builder-content').html(_processCmdOutput(data));
+                $('#builder-panel .builder-content').html(_processCmdOutput(data.replace("\r\n", "\n")));
                 panel.show();
             });
         }).done();
