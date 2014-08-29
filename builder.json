@@ -10,5 +10,9 @@
     {
         "name": "Ruby",
         "cmd": "ruby $FILE"
+    },
+    {
+        "name": "Golang",
+        "cmd": "go build"
     }
 ]
