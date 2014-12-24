@@ -34,7 +34,7 @@ define(function (require, exports, module) {
 
     function _processCmdOutput(data) {
         data = JSON.stringify(data);
-        data = data.replace(/\\n/g, '<br />').replace(/\"/g, '').replace(/\\t/g, '');
+        data = data.replace(/(\\r)?\\n/g, '<br />').replace(/\"/g, '').replace(/\\t/g, '');
         return data;
     }
 
