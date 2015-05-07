@@ -34,11 +34,16 @@ define(function (require, exports, module) {
 
     function _processCmdOutput(data) {
         data = JSON.stringify(data);
-        data = data.replace(/\\n/g, '<br />').replace(/\"/g, '').replace(/\\t/g, '');
+        data = data
+          .replace(/\\r/g, '\r')
+          .replace(/\\n/g, '\n')
+          .replace(/\"/g, '')
+          .replace(/\\t/g, '\t');
         return data;
     }
 
     function handle() {
+        CommandManager.execute("file.saveAll")
         curOpenDir  = DocumentManager.getCurrentDocument().file._parentPath;
         curOpenFile = DocumentManager.getCurrentDocument().file._path;
         curOpenLang = DocumentManager.getCurrentDocument().language._name;
@@ -56,8 +61,8 @@ define(function (require, exports, module) {
                 if (el.name.toLowerCase() === curOpenLang.toLowerCase()) {
                     cmd = el.cmd;
                 }
-            });  
-            
+            });
+
             cmd = cmd.replace(/\$FILE/g, "\"" + curOpenFile + "\"");
         }).then(function () {
             nodeConnection.domains["builder.execute"].exec(curOpenDir, cmd)
