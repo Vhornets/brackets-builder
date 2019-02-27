@@ -1,3 +1,5 @@
+#I'm no longer woking on this project. Please, feel free to fork it
+
 brackets-builder
 ================
 ![Brackets Builder](https://dl.dropboxusercontent.com/u/30258921/brackets-builder.png "Brackets Builder") <br />
