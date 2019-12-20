@@ -1,18 +1,22 @@
 [
     {
-        "name": "Python",
-        "cmd": "python $FILE"
+        "name": "Bash",
+        "cmd": "bash $FILE"
+    },
+    {
+        "name": "Golang",
+        "cmd": "go build"
     },
     {
         "name": "JavaScript",
         "cmd": "node $FILE"
     },
     {
-        "name": "Ruby",
-        "cmd": "ruby $FILE"
+        "name": "Python",
+        "cmd": "python $FILE"
     },
     {
-        "name": "Golang",
-        "cmd": "go build"
+        "name": "Ruby",
+        "cmd": "ruby $FILE"
     }
 ]

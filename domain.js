@@ -8,7 +8,7 @@
 
     function exec(directory, command, callback) {
         child_process.exec(command, { cwd: directory}, function (err, stdout, stderr) {
-            callback(err ? stderr : undefined, err ? undefined : stdout);
+            callback(err ? stderr || stdout : undefined, err ? undefined : stdout);
         });
     }
 
